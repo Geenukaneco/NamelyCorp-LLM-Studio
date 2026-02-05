@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAMELYCORP LLM Studio | Namely Corp</title>
+    <meta name="description" content="Train custom AI models from your browser. A Namely Corp product.">
+    <link rel="icon" type="image/svg+xml" href="/static/logo.svg">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <!-- Namely Corp Logo -->
+                <svg class="logo-icon" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="20" cy="20" r="18" stroke="url(#logoGrad)" stroke-width="2" fill="none"/>
+                    <circle cx="20" cy="20" r="6" fill="url(#logoGrad)">
+                        <animate attributeName="r" values="6;8;6" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <defs>
+                        <linearGradient id="logoGrad" x1="0" y1="0" x2="40" y2="40">
+                            <stop offset="0%" stop-color="#60a5fa"/>
+                            <stop offset="100%" stop-color="#3b82f6"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="logo-text">
+                    <span class="logo-brand"><span>NAMELYCORP</span> LLM Studio</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <!-- Theme Toggle Button -->
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <!-- Sun icon (shown in dark mode) -->
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <!-- Moon icon (shown in light mode) -->
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+                <!-- GPU Status -->
+                <div class="gpu-status" id="gpuStatus">
+                    <span class="gpu-icon">🖥️</span>
+                    <div class="gpu-info">
+                        <span class="gpu-name" id="gpuName">Detecting GPU...</span>
+                        <div class="vram-container">
+                            <div class="vram-bar">
+                                <div class="vram-fill" id="vramFill" style="width: 0%"></div>
+                            </div>
+                            <span class="vram-text" id="vramText">0 / 0 GB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs">
+        <button class="tab active" data-tab="dashboard">
+            <span class="tab-icon">📊</span> Dashboard
+        </button>
+        <button class="tab" data-tab="dataset">
+            <span class="tab-icon">📁</span> Dataset Builder
+        </button>
+        <button class="tab" data-tab="validate">
+            <span class="tab-icon">✅</span> Validation
+        </button>
+        <button class="tab" data-tab="train">
+            <span class="tab-icon">⚡</span> Training
+        </button>
+        <button class="tab" data-tab="export">
+            <span class="tab-icon">📦</span> Export & Test
+        </button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        
+        <!-- Dashboard Tab -->
+        <div class="tab-content active" id="dashboard">
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h2><span class="icon">📊</span> Project Statistics</h2>
+                    <div class="stat-grid">
+                        <div class="stat-item">
+                            <span class="stat-label">Documents</span>
+                            <span class="stat-value" id="docsCount">0</span>
+                            <span class="stat-unit">files in /docs</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Total Size</span>
+                            <span class="stat-value" id="docsSize">0</span>
+                            <span class="stat-unit">megabytes</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Dataset</span>
+                            <span class="stat-value" id="datasetRows">0</span>
+                            <span class="stat-unit">Q&A pairs</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Models</span>
+                            <span class="stat-value" id="modelsCount">0</span>
+                            <span class="stat-unit">trained</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2><span class="icon">🎯</span> Quick Actions</h2>
+                    <div class="quick-actions">
+                        <button class="btn btn-primary" onclick="switchTab('dataset')">📁 Build Dataset</button>
+                        <button class="btn btn-primary" onclick="switchTab('validate')">✅ Validate Data</button>
+                        <button class="btn btn-primary" onclick="switchTab('train')">⚡ Start Training</button>
+                        <button class="btn btn-secondary" onclick="switchTab('export')">📦 Export Model</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2><span class="icon">🔧</span> System Status</h2>
+                    <div class="system-status">
+                        <div class="status-item">
+                            <span>NVIDIA GPU</span>
+                            <span id="gpuStatus2" class="status-ok">●</span>
+                        </div>
+                        <div class="status-item">
+                            <span>CUDA Toolkit</span>
+                            <span id="cudaStatus" class="status-ok">●</span>
+                        </div>
+                        <div class="status-item">
+                            <span>Tesseract OCR</span>
+                            <span id="ocrStatus" class="status-unknown">●</span>
+                        </div>
+                        <div class="status-item">
+                            <span>Python Environment</span>
+                            <span id="pythonStatus" class="status-ok">●</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dataset Builder Tab -->
+        <div class="tab-content" id="dataset">
+            <div class="card">
+                <h2><span class="icon">📁</span> Dataset Builder</h2>
+                <p class="card-description">Generate Q&A training pairs from your documents. Supports PDF, DOCX, TXT, CSV, and XLSX files.</p>
+                
+                <div class="form-group">
+                    <label>Documents Directory</label>
+                    <div class="input-group">
+                        <input type="text" id="docsDir" class="form-control" value="C:\dev\llm\docs">
+                        <button class="btn btn-secondary btn-small" onclick="scanFolder()">🔍 Scan</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Output CSV Path</label>
+                    <input type="text" id="outputCsv" class="form-control" value="C:\dev\llm\data_qa.csv">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Base Model (for tokenization)</label>
+                        <input type="text" id="datasetModel" class="form-control" value="C:\models\Llama-3.2-3B-Instruct">
+                    </div>
+                    <div class="form-group">
+                        <label>Chunk Size (chars)</label>
+                        <input type="number" id="chunkSize" class="form-control" value="1400">
+                    </div>
+                    <div class="form-group">
+                        <label>Max Tokens</label>
+                        <input type="number" id="maxTokens" class="form-control" value="1024">
+                    </div>
+                </div>
+
+                <h3>OCR Configuration</h3>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="enableOcr" checked> Enable OCR for scanned PDFs</label>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>OCR Language</label>
+                        <select id="ocrLang" class="form-control">
+                            <option value="eng">English</option>
+                            <option value="deu">German</option>
+                            <option value="fra">French</option>
+                            <option value="spa">Spanish</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Max Files (optional)</label>
+                        <input type="number" id="maxFiles" class="form-control" placeholder="Process all">
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-large" onclick="buildDataset()">▶️ Build Dataset</button>
+
+                <div id="datasetProgress" class="progress-section" style="display: none;">
+                    <h3>Build Progress</h3>
+                    <div class="progress-bar"><div class="progress-fill" id="datasetProgressFill" style="width: 0%"></div></div>
+                    <p class="progress-status" id="datasetStatus">Initializing...</p>
+                    <div class="log-viewer" id="datasetLogs"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Validation Tab -->
+        <div class="tab-content" id="validate">
+            <div class="card">
+                <h2><span class="icon">✅</span> Dataset Validation</h2>
+                <p class="card-description">Check your dataset for issues before training. Finds duplicates, validates token counts, and filters low-quality entries.</p>
+
+                <div class="form-group">
+                    <label>Input CSV Path</label>
+                    <input type="text" id="validateCsv" class="form-control" value="C:\dev\llm\data_qa.csv">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Model (for token counting)</label>
+                        <input type="text" id="validateModel" class="form-control" value="C:\models\Llama-3.2-3B-Instruct">
+                    </div>
+                    <div class="form-group">
+                        <label>Max Tokens</label>
+                        <input type="number" id="validateMaxTokens" class="form-control" value="1024">
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="writeClean" checked> Write cleaned CSV (removes invalid entries)</label>
+                </div>
+
+                <div class="form-group">
+                    <label>Cleaned Output Path</label>
+                    <input type="text" id="cleanPath" class="form-control" value="C:\dev\llm\data_qa.cleaned.csv">
+                </div>
+
+                <button class="btn btn-success btn-large" onclick="validateDataset()">✅ Validate Dataset</button>
+
+                <div id="validateProgress" class="progress-section" style="display: none;">
+                    <h3>Validation Results</h3>
+                    <div class="progress-bar"><div class="progress-fill" id="validateProgressFill" style="width: 0%"></div></div>
+                    <p class="progress-status" id="validateStatus">Validating...</p>
+                    <div class="log-viewer" id="validateLogs"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Training Tab -->
+        <div class="tab-content" id="train">
+            <div class="card">
+                <h2><span class="icon">⚡</span> LoRA Fine-Tuning</h2>
+                <p class="card-description">Train a custom model using Low-Rank Adaptation. Configure parameters or use a preset.</p>
+                
+                <div class="form-group">
+                    <label>Training Dataset (CSV)</label>
+                    <input type="text" id="trainCsv" class="form-control" value="C:\dev\llm\data_qa.cleaned.csv">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Base Model</label>
+                        <input type="text" id="trainModel" class="form-control" value="C:\models\Llama-3.2-3B-Instruct">
+                    </div>
+                    <div class="form-group">
+                        <label>Output Directory</label>
+                        <input type="text" id="trainOutput" class="form-control" value="C:\dev\llm\ft_out">
+                    </div>
+                </div>
+
+                <h3>Training Presets</h3>
+                <div class="preset-buttons">
+                    <button class="btn btn-secondary" onclick="loadPreset('quick')">🚀 Quick Test</button>
+                    <button class="btn btn-secondary" onclick="loadPreset('balanced')">⚖️ Balanced</button>
+                    <button class="btn btn-secondary" onclick="loadPreset('quality')">💎 High Quality</button>
+                </div>
+
+                <h3>Training Parameters</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Epochs</label>
+                        <input type="number" id="epochs" class="form-control" value="2">
+                    </div>
+                    <div class="form-group">
+                        <label>Batch Size</label>
+                        <input type="number" id="batchSize" class="form-control" value="2">
+                    </div>
+                    <div class="form-group">
+                        <label>Gradient Accumulation</label>
+                        <input type="number" id="gradAccum" class="form-control" value="16">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Learning Rate</label>
+                        <input type="text" id="learningRate" class="form-control" value="1e-5">
+                    </div>
+                    <div class="form-group">
+                        <label>Max Sequence Length</label>
+                        <input type="number" id="maxLen" class="form-control" value="1024">
+                    </div>
+                    <div class="form-group">
+                        <label>Validation Split</label>
+                        <input type="number" id="valSplit" class="form-control" value="0.05" step="0.01">
+                    </div>
+                </div>
+
+                <h3>LoRA Configuration</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Rank (r)</label>
+                        <input type="number" id="loraR" class="form-control" value="16">
+                    </div>
+                    <div class="form-group">
+                        <label>Alpha</label>
+                        <input type="number" id="loraAlpha" class="form-control" value="32">
+                    </div>
+                    <div class="form-group">
+                        <label>Dropout</label>
+                        <input type="number" id="loraDropout" class="form-control" value="0.05" step="0.01">
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <label><input type="checkbox" id="includeMlp" checked> Include MLP layers in LoRA (better for content learning)</label>
+                    <label><input type="checkbox" id="mergeFull" checked> Merge & save full model after training</label>
+                </div>
+
+                <button class="btn btn-primary btn-large" onclick="startTraining()">⚡ Start Training</button>
+
+                <div id="trainProgress" class="progress-section" style="display: none;">
+                    <h3>Training Progress</h3>
+                    <div class="progress-bar"><div class="progress-fill" id="trainProgressFill" style="width: 0%"></div></div>
+                    <p class="progress-status" id="trainStatus">Initializing...</p>
+                    <div class="metrics-grid" id="trainMetrics">
+                        <div class="metric">
+                            <span class="metric-label">Loss</span>
+                            <span class="metric-value" id="trainLoss">—</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">GPU Usage</span>
+                            <span class="metric-value" id="trainGpu">—</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">VRAM</span>
+                            <span class="metric-value" id="trainVram">—</span>
+                        </div>
+                    </div>
+                    <div class="log-viewer" id="trainLogs"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Export & Test Tab -->
+        <div class="tab-content" id="export">
+            <div class="card">
+                <h2><span class="icon">📦</span> Export & Testing</h2>
+                
+                <h3>GGUF Conversion</h3>
+                <p class="card-description">Convert your model to GGUF format for use with llama.cpp, Ollama, or other inference engines.</p>
+                
+                <div class="form-group">
+                    <label>Source Model Path</label>
+                    <input type="text" id="ggufSource" class="form-control" placeholder="C:\dev\llm\ft_out\merged_model">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Output GGUF Path</label>
+                        <input type="text" id="ggufOutput" class="form-control" placeholder="C:\dev\llm\ft_out\model.gguf">
+                    </div>
+                    <div class="form-group">
+                        <label>Quantization Type</label>
+                        <select id="quantType" class="form-control">
+                            <option value="q8_0">Q8_0 (8-bit, ~3.5GB)</option>
+                            <option value="q6_k">Q6_K (6-bit, ~2.7GB)</option>
+                            <option value="q5_k_m">Q5_K_M (5-bit, ~2.3GB)</option>
+                            <option value="q4_k_m" selected>Q4_K_M (4-bit, ~1.9GB) — Recommended</option>
+                            <option value="q4_k_s">Q4_K_S (4-bit small, ~1.8GB)</option>
+                            <option value="q3_k_m">Q3_K_M (3-bit, ~1.5GB)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="convertGGUF()">🔄 Convert to GGUF</button>
+
+                <hr>
+
+                <h3>Test Inference</h3>
+                <p class="card-description">Test your fine-tuned model with sample questions to verify training quality.</p>
+                
+                <div class="form-group">
+                    <label>Model Path</label>
+                    <input type="text" id="testModel" class="form-control" placeholder="C:\dev\llm\ft_out\merged_model">
+                </div>
+
+                <div class="form-group">
+                    <label>Your Question</label>
+                    <textarea id="testQuestion" class="form-control" rows="3" placeholder="Enter a question based on your training data..."></textarea>
+                </div>
+
+                <button class="btn btn-primary" onclick="testInference()">🚀 Generate Answer</button>
+
+                <div id="testResult" class="result-section" style="display: none;">
+                    <h3>Model Response</h3>
+                    <div class="response-box" id="testResponse"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p><strong>NAMELYCORP LLM Studio</strong> — A <a href="https://namelycorp.com" target="_blank">Namely Corp</a> Product</p>
+        <p style="margin-top: 4px;">© 2026 Namely Corporation. All rights reserved.</p>
+    </footer>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

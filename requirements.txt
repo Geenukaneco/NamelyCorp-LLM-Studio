@@ -1,0 +1,29 @@
+# Core LLM fine-tuning
+torch
+torchvision
+torchaudio
+transformers
+datasets
+peft
+accelerate
+safetensors
+sentencepiece
+huggingface_hub
+
+# Dataset + docs ingestion
+pymupdf
+pypdf
+python-docx
+pandas
+openpyxl
+tabulate
+pdf2image
+pytesseract
+pillow
+
+# Web UI (optional)
+fastapi
+uvicorn
+pydantic
+psutil
+py3nvml
